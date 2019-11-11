@@ -1,0 +1,77 @@
+/* circuit here https://www.tinkercad.com/things/7vYCex558R5-amazing-allis-uusam/editel
+*/
+/* pankaj sharma*/
+#include <Servo.h>
+
+int pos = 0;
+
+Servo servo_10;
+int inches = 0;
+const int buzzer = 9;
+int cm = 0;
+
+long readUltrasonicDistance(int triggerPin, int echoPin)
+{
+  pinMode(triggerPin, OUTPUT); 
+  digitalWrite(triggerPin, LOW);
+  delayMicroseconds(2);
+ 
+  digitalWrite(triggerPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triggerPin, LOW);
+  pinMode(echoPin, INPUT);
+ 
+  return pulseIn(echoPin, HIGH);
+}
+
+void setup()
+{
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
+  Serial.begin(9600);
+   pinMode(buzzer, OUTPUT);
+   servo_10.attach(10);
+
+}
+
+void loop()
+{
+  // measure the ping time in cm
+  cm = 0.01723 * readUltrasonicDistance(7, 7);
+  // convert to inches by dividing by 2.54
+  inches = (cm / 2.54);
+  Serial.print(inches);
+  Serial.print("in, ");
+  Serial.print(cm);
+  Serial.println("cm");
+  delay(100);
+
+  if (inches < 20 )
+  {
+    digitalWrite(13,HIGH);
+    digitalWrite(12,LOW);
+    digitalWrite(11,LOW);
+   tone(buzzer, 1000);
+  delay(1000);        
+   pos = 180;
+      {
+    servo_10.write(pos);
+    delay(15);
+     } 
+  }
+  else
+  {
+     noTone(buzzer);    
+     delay(1000); 
+  
+    digitalWrite(13,LOW);
+    digitalWrite(12,HIGH);
+    digitalWrite(11,LOW);
+   pos = 0;
+    {
+     servo_10.write(pos);
+     delay(15); 
+    } 
+  }
+}
