@@ -1,0 +1,26 @@
+
+int i=0;  // initilaize the variable
+
+int j=0;
+int k=0;
+void setup()
+{
+pinMode(9,OUTPUT);  // connecting the rgb led in given pin 
+pinMode(10,OUTPUT);
+pinMode(11,OUTPUT);
+}
+void loop()
+{
+for (i=;i<=255;i+=)
+{
+  for (j=0;j<=255;j++)
+  {
+    for (k=0;k<=255;k++)
+    {
+      analogWrite(9,i);
+      analogWrite(10,j);
+      analogWrite(11,k);
+      }
+  }
+}
+}
