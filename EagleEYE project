@@ -1,0 +1,21 @@
+int senserValue = 0;   
+  void setup()
+{
+pinMode(10,OUTPUT);
+pinMode(A0,INPUT);
+pinMode(13,OUTPUT);
+Serial.begin(9600);
+}
+void loop()
+{
+senserValue = analogRead(A0);
+  Serial.println(senserValue);
+  if (senserValue < 50)
+  {
+  tone(10,50000,1000);
+    digitalWrite(13,1);
+  }
+  else
+    digitalWrite(13,0);
+noTone(10);
+}
